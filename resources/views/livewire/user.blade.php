@@ -9,6 +9,11 @@
                 <button wire:click="pilihMenu('tambah')"
                 class="btn {{ $pilihanMenu == 'tambah' ? 'btn-primary' : 'btn-outline-primary' }}">Tambah Pengguna</button>
 
+                
+
+        <div class="row my-2">
+            <div class ="col-12">
+                @if($pilihanMenu == 'lihat')
                 <table class = "table table-bordered">
                     <thead></thead>
                     <thead>
@@ -29,8 +34,9 @@
                                     <button wire:click="pilihMenu('edit')" 
                                     class="btn {{ $pilihanMenu == 'edit' ? 'btn-primary' : 'btn-outline-primary' }}">Edit Pengguna</button>
                     
-                                    <button wire:click="pilihMenu('hapus')" 
+                                    <button wire:click="pilihHapus({{ $pengguna->id }})"
                                     class="btn {{ $pilihanMenu == 'hapus' ? 'btn-primary' : 'btn-outline-primary' }}">Hapus Pengguna</button>
+                                    
                                                                        
                                 </td>
                             </tr>
@@ -44,50 +50,83 @@
                 </button>
             </div>
         </div>
-
-        <div class="row my-2">
-            <div class ="col-12">
-                @if($pilihanMenu == 'lihat')
-                    test
+        
                 @elseif ($pilihanMenu == 'tambah')
-
-                <form wire:submit="simpan" action="" method="post">
-                    <label for="">Nama</label>
-                    <input type="text" class="form-control" wire:model="nama">
-                    @error('nama')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    <br>
-                
-                    <label for="">Email</label>
-                    <input type="email" class="form-control" wire:model="email">
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    <br>
-                
-                    <label for="">Password</label>
-                    <input type="password" class="form-control" wire:model="password">
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    <br>
-                
-                    <label for="">Peran</label>
-                    <select class="form-control" wire:model="peran">
-                        <option>-pilih peran--</option>
-                        <option value="admin">Admin</option>
-                        <option value="kasir">Kasir</option>
-                    </select>
-                    @error('peran')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    <br>
-                
-                    <button type="submit" class="btn btn-primary mt-3">Simpan</button>
-                </form>
+                    <form wire:submit="simpan" action="" method="post">
+                        <label for="">Nama</label>
+                        <input type="text" class="form-control" wire:model="nama">
+                        @error('nama')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <br>
+                    
+                        <label for="">Email</label>
+                        <input type="email" class="form-control" wire:model="email">
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <br>
+                    
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" wire:model="password">
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <br>
+                    
+                        <label for="">Peran</label>
+                        <select class="form-control" wire:model="peran">
+                            <option>-pilih peran--</option>
+                            <option value="admin">Admin</option>
+                            <option value="kasir">Kasir</option>
+                        </select>
+                        @error('peran')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <br>
+                    
+                        <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+                    </form>
                 
                 @elseif ($pilihanMenu == 'edit')
+                    <form wire:submit="simpanEdit" action="" method="post">
+                        <label for="">Nama</label>
+                        <input type="text" class="form-control" wire:model="nama">
+                        @error('nama')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <br>
+                    
+                        <label for="">Email</label>
+                        <input type="email" class="form-control" wire:model="email">
+                        @error('email')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <br>
+                    
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" wire:model="password">
+                        @error('password')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <br>
+                    
+                        <label for="">Peran</label>
+                        <select class="form-control" wire:model="peran">
+                            <option>-pilih peran--</option>
+                            <option value="admin">Admin</option>
+                            <option value="kasir">Kasir</option>
+                        </select>
+                        @error('peran')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <br>
+                    
+                        <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+                        <button type="button" wire:click='batal' class="btn btn-secondary mt-3">Batal</button>
+
+                    </form>
+                
                 @elseif ($pilihanMenu == 'hapus')
                 <div class="card border-primary">
                     <div class="card-header bg-danger text-white">
