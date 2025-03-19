@@ -10,7 +10,6 @@
                         </a>
                     </div>
                     
-                    
                         <table class="table table-bordered">
                         <thead>
                             <th>No</th>
