@@ -107,5 +107,11 @@ class User extends Component
         $this->reset('nama', 'email', 'peran', 'penggunaTerpilih');
         $this->pilihMenu('lihat');
     }
+
+    // public function mount(){
+    //     if (auth()->user()->role != 'admin'){
+    //         abort(403);
+    //     }
+    // }
     
 }

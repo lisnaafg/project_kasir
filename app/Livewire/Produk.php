@@ -105,4 +105,10 @@ class Produk extends Component
         // 🔄 Update data langsung
         $this->semuaProduk = ModelProduk::all();
     }
+
+     // public function mount(){
+    //     if (auth()->user()->role != 'admin'){
+    //         abort(403);
+    //     }
+    // }
 }

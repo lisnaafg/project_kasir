@@ -9,7 +9,7 @@
                     class="btn {{ $pilihanMenu == 'tambah' ? 'btn-primary' : 'btn-outline-primary' }}">Tambah Produk</button>
 
                     <button wire:click="pilihMenu('excel')"
-                    class="btn {{ $pilihanMenu == 'excel' ? 'btn-primary' : 'btn-outline-primary' }}">Tambah Produk</button>
+                    class="btn {{ $pilihanMenu == 'excel' ? 'btn-primary' : 'btn-outline-primary' }}">Import Produk</button>
             </div>
         </div>
 
