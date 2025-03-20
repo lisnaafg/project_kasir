@@ -81,32 +81,39 @@ class User extends Component
     }
 
     public function simpanEdit()
-    {
-        $this->validate([
-            'nama' => 'required',
-            'email' => 'required|email|unique:users,email,' . $this->penggunaTerpilih->id,
-            'peran' => 'required',
-        ],[
-            'nama.required' => 'Nama harus diisi',
-            'nama.required' => 'Nama harus diisi',
-            'email.email' => 'email tidak valid',
-            'email.unique' => 'Email sudah Terdaftar',
-            'peran.required' => 'Peran harus dipilih',
-        ]);
-
-        $simpan = $this->penggunaTerpilih;
-        $simpan->name = $this->nama;
-        $simpan->email = $this->email;
-        if ($this->password){
-            $simpan->password =bcrypt($this->password);
-        }
-
-        $simpan->role = $this->peran;
-        $simpan->save();
-
-        $this->reset('nama', 'email', 'peran', 'penggunaTerpilih');
-        $this->pilihMenu('lihat');
+{
+    if (!$this->penggunaTerpilih) {
+        return session()->flash('error', 'Pengguna tidak ditemukan.');
     }
+
+    $this->validate([
+        'nama' => 'required',
+        'email' => 'required|email|unique:users,email,' . $this->penggunaTerpilih->id,
+        'peran' => 'required',
+    ], [
+        'nama.required' => 'Nama harus diisi',
+        'email.email' => 'Email tidak valid',
+        'email.unique' => 'Email sudah terdaftar',
+        'peran.required' => 'Peran harus dipilih',
+    ]);
+
+    // Update data pengguna
+    $this->penggunaTerpilih->name = $this->nama;
+    $this->penggunaTerpilih->email = $this->email;
+    $this->penggunaTerpilih->role = $this->peran;
+
+    // Jika password diisi, baru diupdate
+    if (!empty($this->password)) {
+        $this->penggunaTerpilih->password = Hash::make($this->password);
+    }
+
+    $this->penggunaTerpilih->save();
+
+    // Reset form dan kembali ke daftar pengguna
+    $this->reset(['nama', 'email', 'password', 'peran', 'penggunaTerpilih']);
+    $this->pilihMenu('lihat');
+}
+
 
     // public function mount(){
     //     if (auth()->user()->role != 'admin'){

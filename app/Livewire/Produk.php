@@ -106,7 +106,7 @@ class Produk extends Component
         $this->semuaProduk = ModelProduk::all();
     }
 
-     // public function mount(){
+    //  public function mount(){
     //     if (auth()->user()->role != 'admin'){
     //         abort(403);
     //     }

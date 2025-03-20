@@ -31,8 +31,9 @@
                                 <td>{{ $pengguna->email }}</td>
                                 <td>{{ $pengguna->role }}</td>
                                 <td>
-                                    <button wire:click="pilihMenu('edit')" 
-                                    class="btn {{ $pilihanMenu == 'edit' ? 'btn-primary' : 'btn-outline-primary' }}">Edit Pengguna</button>
+                                    <button wire:click="pilihEdit({{ $pengguna->id }})" 
+                                        class="btn btn-outline-primary">Edit Pengguna</button>
+                                        
                     
                                     <button wire:click="pilihHapus({{ $pengguna->id }})"
                                     class="btn {{ $pilihanMenu == 'hapus' ? 'btn-primary' : 'btn-outline-primary' }}">Hapus Pengguna</button>

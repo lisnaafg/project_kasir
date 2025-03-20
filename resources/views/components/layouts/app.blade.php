@@ -13,8 +13,10 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    {{-- tambah --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+           <!-- Latest compiled and minified CSS -->
+           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+           <!-- Latest compiled JavaScript -->
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -76,33 +78,46 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
+                        
                         <a href="{{ route('home') }}" wire:navigate
-                        class="btn {{ request()->routeIs('home') ? 'btn-primary' : 'btn-outline-primary' }}">
-                        Beranda
+                            class="btn {{ request()->routeIs('home') ? 'btn-primary' : 'btn-outline-primary' }}">
+                            Beranda
                         </a>
-
-                        <a href="{{ route('user') }}" wire:navigate
-                        class="btn {{ request()->routeIs('user') ? 'btn-primary' : 'btn-outline-primary' }}">
-                        Pengguna
-                        </a>
-
+                    
+                        @if(strtolower(Auth::user()->role) == 'admin')
+                            <a href="{{ route('user') }}" wire:navigate
+                                class="btn {{ request()->routeIs('user') ? 'btn-primary' : 'btn-outline-primary' }}">
+                                Pengguna
+                            </a>
+                        @endif
+                    
+                        @if(strtolower(Auth::user()->role) == 'admin')
                         <a href="{{ route('produk') }}" wire:navigate
-                        class="btn {{ request()->routeIs('produk') ? 'btn-primary' : 'btn-outline-primary' }}">
-                        Produk
+                            class="btn {{ request()->routeIs('produk') ? 'btn-primary' : 'btn-outline-primary' }}">
+                            Produk
                         </a>
-
+                        @endif
+                    
                         <a href="{{ route('transaksi') }}" wire:navigate
-                        class="btn {{ request()->routeIs('transaksi') ? 'btn-primary' : 'btn-outline-primary' }}">
-                        Transaksi</a>
-
-                        <a href="{{ route('laporan') }}" wire:navigate
-                        class="btn {{ request()->routeIs('laporan') ? 'btn-primary' : 'btn-outline-primary' }}">
-                        Laporan</a>
+                            class="btn {{ request()->routeIs('transaksi') ? 'btn-primary' : 'btn-outline-primary' }}">
+                            Transaksi
+                        </a>
+                    
+                        
+                            <a href="{{ route('laporan') }}" wire:navigate
+                                class="btn {{ request()->routeIs('laporan') ? 'btn-primary' : 'btn-outline-primary' }}">
+                                Laporan
+                            </a>
+                        
                     </div>
+                    
                 </div>
             </div>
             {{ $slot }}
         </main>
+
+
+
     </div>
 </body>
 </html>
