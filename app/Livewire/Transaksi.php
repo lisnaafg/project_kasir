@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Transaksi as ModelsTransaksi;
 use App\Models\DetilTransaksi;
 use App\Models\Produk; // ✅ Tambahkan ini
+use Illuminate\Support\Facades\DB;
+
 
 class Transaksi extends Component
 {
@@ -95,12 +97,41 @@ class Transaksi extends Component
     }
 
     public function updatedBayar()
-{
-    $this->bayar = (float) $this->bayar;
-    $this->totalSebelumBelanja = (float) $this->totalSebelumBelanja;
+    {
+        $this->bayar = (float) $this->bayar;
+        $this->totalSebelumBelanja = (float) $this->totalSebelumBelanja;
 
-    $this->kembalian = $this->bayar - $this->totalSebelumBelanja;
-}
+        $this->kembalian = $this->bayar - $this->totalSebelumBelanja;
+    }
+
+    public function tambahJumlah($produkId)
+    {
+        $produk = DetilTransaksi::find($produkId);
+        if ($produk) {
+            $produk->jumlah += 1;
+            $produk->save();
+            $this->hitungTotal();
+        }
+    }
+
+    public function kurangiJumlah($produkId)
+    {
+        $produk = DetilTransaksi::find($produkId);
+        if ($produk && $produk->jumlah > 1) {
+            $produk->jumlah -= 1;
+            $produk->save();
+            $this->hitungTotal();
+        }
+    }
+
+    private function hitungTotal()
+    {
+        $this->totalSebelumBelanja = DetilTransaksi::join('produks', 'detil_transaksis.produk_id', '=', 'produks.id')
+            ->where('detil_transaksis.transaksi_id', $this->transaksiAktif->id)
+            ->sum(DB::raw('detil_transaksis.jumlah * produks.harga'));
+    }
+    
+
 
 
     

@@ -49,7 +49,13 @@
                                 <td>{{ $produk->produk->kode }}</td>
                                 <td>{{ $produk->produk->nama }}</td>
                                 <td>Rp {{ number_format($produk->produk->harga, 0, ',', '.') }}</td>
-                                <td>{{ $produk->jumlah }}</td>
+                                <td>
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <button class="btn btn-sm btn-danger me-2" wire:click="kurangiJumlah({{ $produk->id }})">➖</button>
+                                        <span class="px-2">{{ $produk->jumlah }}</span>
+                                        <button class="btn btn-sm btn-success ms-2" wire:click="tambahJumlah({{ $produk->id }})">➕</button>
+                                    </div>
+                                </td>
                                 <td>Rp {{ number_format($produk->produk->harga * $produk->jumlah, 0, ',', '.') }}</td>
                                 <td>
                                     <button class="btn btn-sm" wire:click="hapusProduk({{ $produk->id }})" 
@@ -59,7 +65,8 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>                                            
+                        </tbody>
+                                                          
                     </table>
                 </div>
             </div>
