@@ -13,4 +13,11 @@ class Transaksi extends Model
     {
         return $this->hasMany(DetilTransaksi::class);
     }
+    protected $table = 'transaksis'; // Pastikan sesuai dengan nama tabel di databa
+    public function items()
+    {
+        return $this->hasMany(DetilTransaksi::class, 'transaksi_id');
+    }
+
+    
 }

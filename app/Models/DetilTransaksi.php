@@ -9,18 +9,18 @@ use App\Models\Produk;
 
 class DetilTransaksi extends Model
 {
-    use HasFactory;
+    protected $fillable = ['transaksi_id', 'produk_id', 'jumlah', 'subtotal'];
 
-    protected $fillable = ['transaksi_id', 'produk_id', 'jumlah'];
+    protected $table = 'detil_transaksis';
 
     public function transaksi()
     {
-        return $this->belongsTo(Transaksi::class);
+        return $this->belongsTo(Transaksi::class, 'transaksi_id');
     }
-
 
     public function produk()
     {
-        return $this->belongsTo(Produk::class);
+        return $this->belongsTo(Produk::class, 'produk_id');
     }
 }
+

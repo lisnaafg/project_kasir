@@ -130,8 +130,12 @@ class Transaksi extends Component
             ->where('detil_transaksis.transaksi_id', $this->transaksiAktif->id)
             ->sum(DB::raw('detil_transaksis.jumlah * produks.harga'));
     }
-    
 
+    public function cetakNota()
+    {
+        // Arahkan ke halaman nota atau generate PDF
+        return redirect()->route('nota', ['id' => $this->transaksiAktif->id]);
+    }
 
 
     

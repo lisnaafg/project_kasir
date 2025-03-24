@@ -7,6 +7,8 @@ use App\Livewire\Produk;
 use App\Livewire\Transaksi;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TransaksiController;
+
 
 
 
@@ -23,6 +25,4 @@ Route::get('/laporan', Laporan::class)->middleware(['auth'])->name('laporan');
 Route::get('/produk', Produk::class)->middleware(['auth'])->name('produk');
 Route::get('/transaksi', Transaksi::class)->middleware(['auth'])->name('transaksi');
 
-// Route::get('/', [HomeController::class, 'index']);
 Route::get('/cetak', [HomeController::class, 'cetak']);
-// Route::get('/cetak', ['App\Http\Controllers\HomeController::class', 'cetak']);
