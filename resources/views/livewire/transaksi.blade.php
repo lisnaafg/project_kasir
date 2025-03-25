@@ -108,6 +108,8 @@
                 <div class="alert alert-danger mt-3 text-center" style="background-color: #red; color: white; font-size: 1.2rem;">
                     ⚠ Uang kurang
                 </div>
+
+                <button class="btn btn-primary mt-3" wire:click="printNota">Cetak Nota</button>
             @endif
         </div>
     </div>

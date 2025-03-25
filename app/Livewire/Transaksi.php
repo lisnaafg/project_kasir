@@ -89,20 +89,45 @@ class Transaksi extends Component
         $detil->delete();
     }
 
-    public function transaksiSelesai(){
+    public function transaksiSelesai()
+    {
+        if (!$this->transaksiAktif) {
+            session()->flash('error', 'Tidak ada transaksi yang sedang berlangsung!');
+            return;
+        }
+
+        // Hitung total transaksi
+        $this->totalSebelumBelanja = DetilTransaksi::where('transaksi_id', $this->transaksiAktif->id)
+            ->get()
+            ->sum(fn($detil) => $detil->jumlah * $detil->produk->harga);
+
+        if ($this->bayar < $this->totalSebelumBelanja) {
+            session()->flash('error', 'Pembayaran tidak cukup!');
+            return;
+        }
+
+        // Update transaksi menjadi selesai
         $this->transaksiAktif->total = $this->totalSebelumBelanja;
         $this->transaksiAktif->status = 'selesai';
         $this->transaksiAktif->save();
         
-        $this->reset();
+
+        session()->flash('success', 'Transaksi berhasil diselesaikan!');
+
+        // Cetak nota otomatis setelah transaksi selesai
+        return redirect()->route('nota.cetak', ['id' => $this->transaksiAktif->id]);
     }
 
     public function updatedBayar()
     {
         $this->bayar = (float) $this->bayar;
-        $this->totalSebelumBelanja = (float) $this->totalSebelumBelanja;
 
-        $this->kembalian = $this->bayar - $this->totalSebelumBelanja;
+        // Hitung ulang total setiap kali pembayaran diubah
+        $this->totalSebelumBelanja = DetilTransaksi::where('transaksi_id', $this->transaksiAktif->id)
+            ->get()
+            ->sum(fn($detil) => $detil->jumlah * $detil->produk->harga);
+
+        $this->kembalian = max($this->bayar - $this->totalSebelumBelanja, 0); // Tidak boleh negatif
     }
 
     public function tambahJumlah($produkId)
@@ -132,11 +157,16 @@ class Transaksi extends Component
             ->sum(DB::raw('detil_transaksis.jumlah * produks.harga'));
     }
 
-    public function cetakNota()
-    {
-        // Arahkan ke halaman nota atau generate PDF
-        return redirect()->route('nota', ['id' => $this->transaksiAktif->id]);
+    public function printNota()
+{
+    // Pastikan hanya transaksi selesai yang bisa dicetak
+    if (!$this->transaksiAktif || $this->transaksiAktif->status !== 'selesai') {
+        session()->flash('error', 'Nota hanya bisa dicetak setelah transaksi selesai!');
+        return;
     }
+
+    return redirect()->route('nota.cetak', ['id' => $this->transaksiAktif->id]);
+}
 
 
     
