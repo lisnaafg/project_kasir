@@ -1,6 +1,6 @@
-<div>
-    <div class="container">
-        <div class="row my-3 text-center">
+<div class="container mt-9">
+    <div class="card shadow-lg mx-auto p-4" style="max-width: 1000px; width: 190%; border-radius: 15px;">
+        <div class="card-header text-white text-center fw-bold" style="background-color: #db8fa6; border-radius: 10px 10px 0 0;">
             <div class="col-12">
                 <button wire:click="pilihMenu('lihat')"
                     class="btn menu-btn {{ $pilihanMenu == 'lihat' ? 'active' : '' }}">📦 Semua Produk</button>
@@ -114,7 +114,7 @@
 
                 {{-- Konfirmasi Hapus Produk --}}
                 @elseif ($pilihanMenu == 'hapus')
-                    <div class="card shadow-lg p-3 border-danger">
+                    <div class="card shadow-lg p-3 border-danger" style="background-color: rgb(161, 175, 241)">
                         <div class="card-header bg-danger text-white fw-bold">🗑 Hapus Produk</div>
                         <div class="card-body">
                             @if($produkTerpilih)

@@ -93,6 +93,7 @@ class Transaksi extends Component
         $this->transaksiAktif->total = $this->totalSebelumBelanja;
         $this->transaksiAktif->status = 'selesai';
         $this->transaksiAktif->save();
+        
         $this->reset();
     }
 

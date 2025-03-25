@@ -46,4 +46,23 @@ class Laporan extends Component
             'semuaTransaksi' => $this->semuaTransaksi
         ]);
     }
+
+    public function cetakLaporan()
+{
+    $query = Transaksi::query();
+
+    if ($this->bulan && $this->tahun) {
+        $query->whereMonth('created_at', $this->bulan)
+              ->whereYear('created_at', $this->tahun);
+    }
+
+    if ($this->tanggalMulai && $this->tanggalSelesai) {
+        $query->whereBetween('created_at', [$this->tanggalMulai, $this->tanggalSelesai]);
+    }
+
+    $transaksi = $query->get();
+    
+    return view('cetak-laporan', compact('transaksi'));
+}
+
 }

@@ -1,14 +1,14 @@
-<div class="container mt-9">
-    <div class="card shadow-lg w-500 mx-auto p-4">
-        <div class="card-header bg-primary text-white">
-            <h3 class="mb-0 text-center">Laporan Transaksi</h3>
+<div class="container mt-5">
+    <div class="card shadow-lg mx-auto p-4" style="max-width: 1000px; width: 190%; border-radius: 15px; background-color: #DFE2DF;">
+        <div class="card-header text-white text-center fw-bold" style="background-color: #1E3670; border-radius: 10px 10px 0 0;">
+            <h3 class="mb-0">Laporan Transaksi</h3>
         </div>
         <div class="card-body">
             <!-- Pilihan Filter -->
             <div class="row mb-4">
                 <!-- Filter Per Bulan -->
                 <div class="col-md-6">
-                    <label class="fw-bold">Laporan Per Bulan</label>
+                    <label class="fw-bold" style="color: #263847;">Laporan Per Bulan</label>
                     <div class="input-group">
                         <select wire:model="bulan" class="form-select">
                             @foreach (range(1, 12) as $m)
@@ -22,7 +22,7 @@
                                 <option value="{{ $y }}">{{ $y }}</option>
                             @endforeach
                         </select>
-                        <button class="btn btn-primary" wire:click="filterPerBulan">
+                        <button class="btn text-white" style="background-color: #263847;" wire:click="filterPerBulan">
                             <i class="fas fa-filter"></i> Filter
                         </button>
                     </div>
@@ -30,28 +30,28 @@
 
                 <!-- Filter Per Rentang Tanggal -->
                 <div class="col-md-6">
-                    <label class="fw-bold">Laporan Per Rentang Tanggal</label>
+                    <label class="fw-bold" style="color: #263847;">Laporan Per Rentang Tanggal</label>
                     <div class="input-group">
                         <input type="date" wire:model="tanggalMulai" class="form-control">
                         <input type="date" wire:model="tanggalSelesai" class="form-control">
-                        <button class="btn btn-primary" wire:click="filterPerRentangTanggal">
+                        <button class="btn text-white" style="background-color: #263847;" wire:click="filterPerRentangTanggal">
                             <i class="fas fa-filter"></i> Filter
                         </button>
                     </div>
                 </div>
             </div>
 
-             <!-- Tombol Cetak -->
-             <div class="d-flex justify-content-end mt-3">
-                <a href="{{ url('/cetak') }}" target="_blank" class="btn btn-success btn-lg">
+            <!-- Tombol Cetak -->
+            <div class="d-flex justify-content-end mt-3">
+                <a href="{{ url('/cetak') }}" target="_blank" class="btn text-white btn-lg" style="background-color: #1E3670;">
                     <i class="fas fa-print"></i> Cetak Laporan
                 </a>
             </div>
 
             <!-- Tabel Laporan -->
-            <div class="table-responsive d-flex justify-content-end mt-3">
+            <div class="table-responsive mt-3">
                 <table class="table table-bordered table-hover">
-                    <thead class="table-primary text-center">
+                    <thead class="text-white text-center" style="background-color: #71869F;">
                         <tr>
                             <th>No</th>
                             <th>Tanggal</th>
@@ -69,14 +69,12 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted">Tidak ada transaksi</td>
+                                <td colspan="4" class="text-center" style="color: #263847;">Tidak ada transaksi</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-
-           
         </div>
     </div>
 </div>
