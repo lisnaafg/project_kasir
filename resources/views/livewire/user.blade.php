@@ -79,6 +79,7 @@
                                 <option>- Pilih Peran -</option>
                                 <option value="admin">Admin</option>
                                 <option value="kasir">Kasir</option>
+                                <option value="manajer">Manajer</option>
                             </select>
                             @error('peran') <span class="text-danger">{{ $message }}</span> @enderror
                             <br>
@@ -108,6 +109,7 @@
                     </div>
                 </div>
             @endif
+            
         </div>
     </div>
 </div>

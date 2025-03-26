@@ -99,6 +99,8 @@
                     <a href="{{ route('transaksi') }}" class="{{ request()->routeIs('transaksi') ? 'active' : '' }}">
                         <i class="bi bi-cash"></i> Transaksi
                     </a>
+
+                    
                     <a href="{{ route('laporan') }}" class="{{ request()->routeIs('laporan') ? 'active' : '' }}">
                         <i class="bi bi-clipboard-data"></i> Laporan
                     </a>
@@ -108,6 +110,7 @@
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout">
                     <i class="bi bi-box-arrow-right"></i> Keluar
                 </a>
+
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
