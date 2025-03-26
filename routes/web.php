@@ -8,7 +8,6 @@ use App\Livewire\Transaksi;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotaController;
-use App\Http\Controllers\TransaksiController;
 
 
 
@@ -29,4 +28,4 @@ Route::get('/produk', Produk::class)->middleware(['auth'])->name('produk');
 Route::get('/transaksi', Transaksi::class)->middleware(['auth'])->name('transaksi');
 
 Route::get('/cetak', [HomeController::class, 'cetak']);
-Route::get('/nota/cetak/{id}', [TransaksiController::class, 'cetakNota'])->name('nota.cetak');
+Route::get('/nota/cetak/{id}', [NotaController::class, 'cetak'])->name('nota.cetak');

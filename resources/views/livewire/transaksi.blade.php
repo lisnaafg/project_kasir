@@ -27,7 +27,10 @@
         <div class="col-lg-8">
             <div class="card shadow-lg border-0" style="border-left: 6px solid #263847; padding: 20px; font-size: 1.2rem; max-width: 1000px; width: 100%;">
                 <div class="card-body">
-                    <h4 class="card-title" style="color: #263847;">📜 No Invoice: {{ $transaksiAktif->kode }}</h4>
+                    <div class="card mt-3 p-3">
+                        <h5 class="text-dark">👨‍💼 Kasir: {{ $transaksiAktif->kasir->name ?? 'Tidak Diketahui' }}</h5>
+                    </div>
+                    
                     <input type="text" class="form-control" placeholder="No. Invoice" wire:model.live="kode" style="font-size: 1rem; padding: 10px;">
                     
                     <table class="table mt-3 text-center">

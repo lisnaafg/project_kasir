@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\DetilTransaksi;
+use App\Models\User;
 
 class Transaksi extends Model
 {
-    protected $fillable = ['kode', 'total', 'status'];
+    protected $fillable = ['kode', 'total', 'status', 'kasir_id'];
+
 
     public function detilTransaksi()
     {
@@ -19,5 +21,9 @@ class Transaksi extends Model
         return $this->hasMany(DetilTransaksi::class, 'transaksi_id');
     }
 
+    public function kasir()
+    {
+        return $this->belongsTo(User::class, 'kasir_id');
+    }
     
 }

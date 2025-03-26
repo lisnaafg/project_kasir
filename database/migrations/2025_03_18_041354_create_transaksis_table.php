@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('kode');
             $table->integer('total');
             $table->string('status')->default('pending');
+            $table->foreignId('kasir_id')->nullable()->constrained('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

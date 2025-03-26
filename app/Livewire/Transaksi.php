@@ -7,6 +7,8 @@ use App\Models\Transaksi as ModelsTransaksi;
 use App\Models\DetilTransaksi;
 use App\Models\Produk; // ✅ Tambahkan ini
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class Transaksi extends Component
@@ -32,15 +34,17 @@ class Transaksi extends Component
     public $kode, $total, $bayar = 0, $kembalian, $totalSebelumBelanja;
     public $transaksiAktif = null; // Ubah dari private ke public
 
-    public function transaksiBaru(): void
-    {
-        $this->reset(['kode', 'total', 'bayar', 'kembalian', 'totalSebelumBelanja']);
-        $this->transaksiAktif = ModelsTransaksi::create([
-            'kode' => 'INV' . date('YmdHis'),
-            'total' => 0,
-            'status' => 'pending'
-        ]);
-    }
+            public function transaksiBaru(): void
+        {
+            $this->reset(['kode', 'total', 'bayar', 'kembalian', 'totalSebelumBelanja']);
+            $this->transaksiAktif = ModelsTransaksi::create([
+                'kode' => 'INV' . date('YmdHis'),
+                'total' => 0,
+                'status' => 'pending',
+                'kasir_id' => Auth::id() // Simpan ID kasir dari user yang login
+            ]);
+        }
+
 
     public function batalTransaksi(): void
     {

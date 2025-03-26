@@ -95,12 +95,13 @@
                             <i class="bi bi-bag"></i> Produk
                         </a>
                     @endif
-
+                    
+                    @if(strtolower(Auth::user()->role) == 'kasir')
                     <a href="{{ route('transaksi') }}" class="{{ request()->routeIs('transaksi') ? 'active' : '' }}">
                         <i class="bi bi-cash"></i> Transaksi
                     </a>
+                    @endif
 
-                    
                     <a href="{{ route('laporan') }}" class="{{ request()->routeIs('laporan') ? 'active' : '' }}">
                         <i class="bi bi-clipboard-data"></i> Laporan
                     </a>

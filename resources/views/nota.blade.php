@@ -14,7 +14,9 @@
 </head>
 <body>
     <div class="header">🛍 LIS' Modest Wear - Nota Pembelian</div>
+
     <p><strong>No Invoice:</strong> {{ $transaksi->kode }}</p>
+    <p><strong>Nama Kasir:</strong> {{ $transaksi->kasir?->name ?? 'Tidak Diketahui' }}</p>
     <p><strong>Nama Pelanggan:</strong> {{ $transaksi->customer_name }}</p>
     <p><strong>Tanggal:</strong> {{ $transaksi->created_at->format('d-m-Y') }}</p>
 
@@ -42,7 +44,7 @@
     </table>
 
     <p><strong>Total Pembayaran:</strong> Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}</p>
-    
+
     <div class="footer">Terima kasih telah berbelanja di LIS' Modest Wear! 😊</div>
 </body>
 </html>

@@ -56,6 +56,7 @@
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>No. Inv.</th>
+                            <th>Nama Kasir</th>  <!-- ✅ Tambahan Kolom Nama Kasir -->
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -65,11 +66,12 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->translatedFormat('d F Y') }}</td>
                                 <td class="text-center">{{ $transaksi->kode }}</td>
+                                <td class="text-center">{{ $transaksi->kasir?->name ?? 'Tidak Diketahui' }}</td> <!-- ✅ Menampilkan Nama Kasir -->
                                 <td class="text-end">Rp. {{ number_format($transaksi->total, 2, ',', '.') }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center" style="color: #263847;">Tidak ada transaksi</td>
+                                <td colspan="5" class="text-center" style="color: #263847;">Tidak ada transaksi</td> <!-- ✅ Sesuaikan colspan -->
                             </tr>
                         @endforelse
                     </tbody>
