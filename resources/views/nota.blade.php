@@ -10,14 +10,15 @@
         .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .table th, .table td { border: 1px solid black; padding: 8px; text-align: left; }
         .footer { margin-top: 20px; text-align: center; font-size: 12px; }
+        .total-container { text-align: right; font-size: 16px; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="header">🛍 LIS' Modest Wear - Nota Pembelian</div>
+    <div class="header">Nota Pembelian</div>
+    <div class="header">TOKO LIS' Modest Wear</div>
 
     <p><strong>No Invoice:</strong> {{ $transaksi->kode }}</p>
     <p><strong>Nama Kasir:</strong> {{ $transaksi->kasir?->name ?? 'Tidak Diketahui' }}</p>
-    <p><strong>Nama Pelanggan:</strong> {{ $transaksi->customer_name }}</p>
     <p><strong>Tanggal:</strong> {{ $transaksi->created_at->format('d-m-Y') }}</p>
 
     <table class="table">
@@ -43,8 +44,10 @@
         </tbody>
     </table>
 
-    <p><strong>Total Pembayaran:</strong> Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}</p>
+    <div class="total-container">
+        <p><strong>Total Pembayaran:</strong> Rp{{ number_format($transaksi->total, 0, ',', '.') }}</p>
+    </div>
 
-    <div class="footer">Terima kasih telah berbelanja di LIS' Modest Wear! 😊</div>
+    <div class="footer">Terima kasih telah berbelanja di <strong>LIS' Modest Wear!</strong></div>
 </body>
 </html>

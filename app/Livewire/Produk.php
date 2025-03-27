@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Produk as ModelProduk;
+use Milon\Barcode\DNS1D; //tambahkan barcode
+
 
 class Produk extends Component
 {
@@ -105,6 +107,33 @@ class Produk extends Component
         // 🔄 Update data langsung
         $this->semuaProduk = ModelProduk::all();
     }
+
+
+    // tambahan barcode
+    public function tambahProduk()
+{
+    $this->validate([
+        'kode' => 'required|unique:produks',
+        'nama' => 'required',
+        'harga' => 'required|numeric',
+        'stok' => 'required|integer',
+    ]);
+
+    $barcode = base64_encode(DNS1D::getBarcodePNG($this->kode, 'C39'));
+
+
+    Produk::create([
+        'kode' => $this->kode,
+        'nama' => $this->nama,
+        'harga' => $this->harga,
+        'stok' => $this->stok,
+        'barcode' => $barcode
+    ]);
+
+    session()->flash('success', 'Produk berhasil ditambahkan!');
+    $this->reset(['kode', 'nama', 'harga', 'stok']);
+}
+
 
     //  public function mount(){
     //     if (auth()->user()->role != 'admin'){

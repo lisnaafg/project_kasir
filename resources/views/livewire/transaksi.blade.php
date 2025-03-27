@@ -112,9 +112,29 @@
                     ⚠ Uang kurang
                 </div>
 
-                <button class="btn btn-primary mt-3" wire:click="printNota">Cetak Nota</button>
+                <button class="btn btn-primary mt-3" onclick="printNota()">Cetak Nota</button>
+
             @endif
         </div>
     </div>
     @endif
+
+    {{-- tambahan barcode --}}
+    <video id="barcode-scanner"></video>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<script>
+    Quagga.init({
+        inputStream: { name: "Live", type: "LiveStream", target: document.querySelector("#barcode-scanner") },
+        decoder: { readers: ["code_128_reader", "ean_reader", "code_39_reader"] }
+    }, function(err) {
+        if (!err) {
+            Quagga.start();
+        }
+    });
+
+    Quagga.onDetected(function(result) {
+        alert("Barcode Terdeteksi: " + result.codeResult.code);
+    });
+</script>
+
 </div>

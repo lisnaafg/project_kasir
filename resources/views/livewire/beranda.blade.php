@@ -3,7 +3,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #dfe2df;
+            background-color: #a1cee5;
         }
         .hero {
             background: url('{!! asset('images/logo1.png') !!}') center/cover no-repeat;

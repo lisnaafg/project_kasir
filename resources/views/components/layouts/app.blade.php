@@ -20,7 +20,10 @@
 
     <style>
         body {
-            background-color: #dfe2df;
+            background-color: #c8d7e1;
+        }
+        .wrapper {
+            display: flex;
         }
         .sidebar {
             width: 250px;
@@ -33,6 +36,13 @@
             justify-content: space-between;
             border-top-right-radius: 20px;
             border-bottom-right-radius: 20px;
+            transition: width 0.3s ease;
+        }
+        .sidebar.collapsed {
+            width: 80px;
+        }
+        .sidebar.collapsed .menu-text {
+            display: none;
         }
         .sidebar a {
             display: flex;
@@ -54,6 +64,11 @@
         .content {
             margin-left: 270px;
             padding: 20px;
+            transition: margin-left 0.3s ease;
+            flex-grow: 1;
+        }
+        .sidebar.collapsed + .content {
+            margin-left: 100px;
         }
         .user-info {
             margin-bottom: 20px;
@@ -70,46 +85,64 @@
             font-weight: bold;
             text-align: center;
         }
+        /* Tombol Hamburger */
+        .hamburger {
+            position: absolute;
+            right: -50px;
+            top: 20px;
+            background: #1e3670;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body>
     <div id="app">
-        <div class="d-flex">
+        <div class="wrapper">
             <!-- Sidebar -->
-            <div class="sidebar">
+            <div class="sidebar" id="sidebar">
+                <button class="hamburger" onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+
                 <div>
-                    <h4 class="text-center fw-bold text-white">LIS' Modest Wear</h4>
-                    <div class="user-info">
+                    <h4 class="text-center fw-bold text-white menu-text">LIS' Modest Wear</h4>
+                    <div class="user-info menu-text">
                         <i class="bi bi-person-circle"></i> {{ Auth::user()->name }}
                     </div>
 
                     <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
-                        <i class="bi bi-house-door"></i> Beranda
+                        <i class="bi bi-house-door"></i> <span class="menu-text">Beranda</span>
                     </a>
-                    
+
                     @if(strtolower(Auth::user()->role) == 'admin')
                         <a href="{{ route('user') }}" class="{{ request()->routeIs('user') ? 'active' : '' }}">
-                            <i class="bi bi-people"></i> Pengguna
+                            <i class="bi bi-people"></i> <span class="menu-text">Pengguna</span>
                         </a>
                         <a href="{{ route('produk') }}" class="{{ request()->routeIs('produk') ? 'active' : '' }}">
-                            <i class="bi bi-bag"></i> Produk
+                            <i class="bi bi-bag"></i> <span class="menu-text">Produk</span>
                         </a>
                     @endif
-                    
+
                     @if(strtolower(Auth::user()->role) == 'kasir')
                     <a href="{{ route('transaksi') }}" class="{{ request()->routeIs('transaksi') ? 'active' : '' }}">
-                        <i class="bi bi-cash"></i> Transaksi
+                        <i class="bi bi-cash"></i> <span class="menu-text">Transaksi</span>
                     </a>
                     @endif
 
                     <a href="{{ route('laporan') }}" class="{{ request()->routeIs('laporan') ? 'active' : '' }}">
-                        <i class="bi bi-clipboard-data"></i> Laporan
+                        <i class="bi bi-clipboard-data"></i> <span class="menu-text">Laporan</span>
                     </a>
                 </div>
 
                 <!-- Logout Button -->
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout">
-                    <i class="bi bi-box-arrow-right"></i> Keluar
+                    <i class="bi bi-box-arrow-right"></i> <span class="menu-text">Keluar</span>
                 </a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -118,12 +151,22 @@
             </div>
 
             <!-- Content -->
-            <div class="content">
+            <div class="content" id="content">
                 <main class="py-4">
                     {{ $slot }}
                 </main>
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            let content = document.getElementById("content");
+
+            sidebar.classList.toggle("collapsed");
+            content.classList.toggle("expanded");
+        }
+    </script>
 </body>
 </html>

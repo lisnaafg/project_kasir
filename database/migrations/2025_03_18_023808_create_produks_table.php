@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('kode');
             $table->integer('harga')->unsigned();
             $table->integer('stok')->default(1)->unsigned();
+            $table->text('barcode')->nullable(); // tambahakn barcode
             $table->timestamps();
         });
     }

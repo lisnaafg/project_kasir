@@ -34,7 +34,13 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $produk->nama }}</td>
-                                        <td>{{ $produk->kode }}</td>
+                                        <td>
+                                            {!! QrCode::size(80)->generate($produk->kode) !!}
+                                            {{-- Untuk barcode gunakan ini --}}
+                                            <img src="data:image/png;base64,{{ $produk->barcode }}" alt="barcode">
+
+                                        </td>
+                                        
                                         <td>Rp {{ number_format($produk->harga, 0, ',', '.') }}</td>
                                         <td>{{ $produk->stok }}</td>
                                         <td>

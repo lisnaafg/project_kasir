@@ -111,9 +111,11 @@ class Transaksi extends Component
         }
 
         // Update transaksi menjadi selesai
-        $this->transaksiAktif->total = $this->totalSebelumBelanja;
-        $this->transaksiAktif->status = 'selesai';
-        $this->transaksiAktif->save();
+        $this->transaksiAktif->update([
+            'total' => $this->totalSebelumBelanja,
+            'status' => 'selesai',
+        ]);
+        
         
 
         session()->flash('success', 'Transaksi berhasil diselesaikan!');
